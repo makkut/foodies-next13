@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import Footer from "@/components/Footer/Footer";
 import Providers from "./providers";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
@@ -24,6 +26,7 @@ export default function RootLayout({
         <Providers>
           <div className="min-h-[75vh]">{children}</div>
         </Providers>
+        <ToastContainer position="bottom-right" />
         <Footer />
       </body>
     </html>

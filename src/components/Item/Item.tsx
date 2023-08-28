@@ -6,9 +6,10 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
 import { useCart, useFavorites, useFilter } from "@/state/state";
+import { useRouter } from "next/navigation";
 
 const Item = ({ item, width, isCategory }: any) => {
-  //   const router = useRouter();
+  const router = useRouter();
   const [count, setCount] = useState(1);
   const { setFilter } = useFilter();
   const { addToCart } = useCart();
@@ -30,7 +31,7 @@ const Item = ({ item, width, isCategory }: any) => {
           height={534}
           src={imageUrl}
           onClick={
-            () => {}
+            () => router.push(`/shop/${id}`)
             // !isCategory
             //   ? () => router.push(`/items/${id}`)
             //   : () => {

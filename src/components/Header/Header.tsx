@@ -6,6 +6,8 @@ import HeaderMenu from "./HeaderMenu";
 import HeaderProfile from "./HeaderProfile";
 
 import HeaderMobileMenu from "./HeaderMobileMenuButton";
+import CartDrawer from "../CartDrawer/CartDrawer";
+import FavoritesDrawer from "../FavoritesDrawer/FavoritesDrawer";
 
 const Header: FC = () => {
   return (
@@ -13,6 +15,8 @@ const Header: FC = () => {
       <HeaderLogo />
       <div className="hidden md:block">
         <HeaderMenu />
+        <CartDrawer />
+        <FavoritesDrawer />
       </div>
       <div className="flex">
         <HeaderProfile />

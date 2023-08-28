@@ -14,7 +14,21 @@ const Search = ({ query }: any) => {
   const { sort, setSort } = useSort((state) => state);
   const { data, isLoading, isError } = useGoods(filter, query, sort);
 
-  if (isLoading) return <>Loading...</>;
+  if (isLoading)
+    return (
+      <>
+        {" "}
+        <Box width="80%" margin="50px auto">
+          <Typography variant="h3" textAlign="center">
+            Search &quot;{query}&quot;
+          </Typography>
+          <div className="flex justify-around">
+            <SelectCategory />
+            <SelectSort />
+          </div>
+        </Box>
+      </>
+    );
   return (
     <>
       <Box width="80%" margin="50px auto">

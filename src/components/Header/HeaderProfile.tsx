@@ -11,11 +11,19 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCart, useFavorites, useFilter, useSearch } from "@/state/state";
 import { IconButton, InputBase, Paper } from "@mui/material";
+import dynamic from "next/dynamic";
+
+const DynamicSquerButton = dynamic(
+  () => import("../ui/squer-button/SquerButton"),
+  {
+    ssr: false,
+  }
+);
 
 const HeaderProfile: FC = () => {
   const router = useRouter();
   const { cart, setIsCartOpen } = useCart();
-  const { setIsFavoritesOpen, favorites } = useFavorites();
+  const { favorites, setIsFavoritesOpen } = useFavorites();
   const { setFilter } = useFilter((state) => state);
   //   const { data: session }: any = useSession();
   const handleChange = (event: any) => setSearch(event.target.value);
@@ -53,7 +61,7 @@ const HeaderProfile: FC = () => {
         </Paper>
       </div>
       <div className="mr-3">
-        <SquerButton
+        <DynamicSquerButton
           Icon={MdFavoriteBorder}
           onClick={() => {
             setIsFavoritesOpen();
@@ -62,7 +70,7 @@ const HeaderProfile: FC = () => {
         />
       </div>
       <div className="mr-3">
-        <SquerButton
+        <DynamicSquerButton
           Icon={FiShoppingCart}
           onClick={() => {
             setIsCartOpen();
@@ -71,7 +79,7 @@ const HeaderProfile: FC = () => {
         />
       </div>
       {/* <Link href={session ? "/profile" : "/signin"}> */}
-      <SquerButton Icon={FiUser} onClick={() => {}} />
+      <DynamicSquerButton Icon={FiUser} onClick={() => {}} />
       {/* </Link> */}
       {/* {session && (
         <div className="ml-2 mr-3 hidden md:block">

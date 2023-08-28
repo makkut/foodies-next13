@@ -1,10 +1,22 @@
-import { getCategoriesAsync, getGoodsAsync } from "../service/handlers";
+import {
+  getCategoriesAsync,
+  getGoodAsync,
+  getGoodsAsync,
+} from "../service/handlers";
 import { useQuery } from "@tanstack/react-query";
 
 const useGoods = (category: string, query: string, sort: string) => {
   return useQuery({
     queryKey: ["goods", category, query, sort],
     queryFn: () => getGoodsAsync(category, query, sort),
+    staleTime: 5 * 60 * 1000,
+  });
+};
+
+const useGood = (id: string) => {
+  return useQuery({
+    queryKey: ["good", id],
+    queryFn: () => getGoodAsync(id),
     staleTime: 5 * 60 * 1000,
   });
 };
@@ -17,4 +29,4 @@ const useCategories = () => {
   });
 };
 
-export { useGoods, useCategories };
+export { useGoods, useGood, useCategories };

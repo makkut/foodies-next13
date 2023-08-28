@@ -1,10 +1,8 @@
 import Search from "@/components/Search/Search";
-import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Search",
-  description: "Search",
-};
+export function generateMetadata({ searchParams }: any) {
+  return { title: `${searchParams.query} | Search`, description: "Search" };
+}
 
 export default function SearchPage({ searchParams }: any) {
   const query = searchParams.query;

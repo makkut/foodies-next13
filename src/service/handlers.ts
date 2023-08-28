@@ -30,6 +30,18 @@ export const getGoodsAsync = async (
   return await client.fetch(gQuery);
 };
 
+export const getGoodAsync = async (id: string) => {
+  let gQuery = `*[_type == 'goods' && _id == "${id}"] {
+      "id": _id,
+      name,
+      "category": category->slug.current,
+      details,
+      price,
+      "imageUrl": image[0].asset->url
+    }`;
+  return await client.fetch(gQuery);
+};
+
 export const getCategoriesAsync = async () => {
   return await client.fetch(`*[_type == 'category']{
 "id": _id,

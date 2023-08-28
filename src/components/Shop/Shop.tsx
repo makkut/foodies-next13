@@ -12,7 +12,19 @@ const Shop: FC = () => {
   const { sort, setSort } = useSort((state) => state);
   const { data, isLoading, isError } = useGoods(filter, "all", sort);
 
-  if (isLoading) return <>Loading</>;
+  if (isLoading)
+    return (
+      <>
+        <Box width="80%" margin="50px auto">
+          <Typography variant="h3" textAlign="center">
+            Shop
+          </Typography>
+          <TabMenu />
+
+          {/* <SelectUI /> */}
+        </Box>
+      </>
+    );
 
   console.log("data", data);
   return (
