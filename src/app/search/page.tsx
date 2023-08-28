@@ -12,11 +12,3 @@ export default function SearchPage({ searchParams }: any) {
     </>
   );
 }
-
-export async function getStaticProps(context: any) {
-  const query = context.query;
-
-  return {
-    props: { query },
-  };
-}
