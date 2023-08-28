@@ -4,8 +4,6 @@ import { FC } from "react";
 import HeaderLogo from "./HeaderLogo";
 import HeaderMenu from "./HeaderMenu";
 import HeaderProfile from "./HeaderProfile";
-
-import HeaderMobileMenu from "./HeaderMobileMenuButton";
 import CartDrawer from "../CartDrawer/CartDrawer";
 import FavoritesDrawer from "../FavoritesDrawer/FavoritesDrawer";
 
