@@ -1,0 +1,25 @@
+.menu {
+  //   @apply flex items-center gap-10;
+  font-size: 20px;
+
+  > nav {
+    @apply mx-auto;
+    > ul {
+      display: flex;
+      //   @apply flex items-center gap-10;
+      > li {
+        margin-right: 30px;
+        > a {
+          @apply relative text-gray-700;
+          &::after {
+            content: "";
+            @apply absolute bg-red-600 left-0 -bottom-3 h-0.5 w-0 transition-all duration-300;
+          }
+          &:hover::after {
+            @apply w-full;
+          }
+        }
+      }
+    }
+  }
+}

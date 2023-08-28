@@ -1,0 +1,9 @@
+// .header {
+//   @apply grid grid-cols-12 w-full items-center py-2 px-3;
+// }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 5px;
+}
