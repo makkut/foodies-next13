@@ -1,17 +1,18 @@
 import { IconButton, InputBase, Paper } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useSearch } from "@/state/state";
+import { useMobileMenu, useSearch } from "@/state/state";
 import { useRouter } from "next/navigation";
 
 const SeachInput = () => {
   const router = useRouter();
-
+  const { setMobileMenuFalse } = useMobileMenu();
   const handleChange = (event: any) => setSearch(event.target.value);
   const { setSearch, search } = useSearch();
 
   const searchGoods = () => {
-    router.push(`/search?query=${search}`);
     setSearch("");
+    setMobileMenuFalse();
+    router.push(`/search?query=${search}`);
   };
 
   const submitHandler = (e: any) => {
@@ -22,7 +23,7 @@ const SeachInput = () => {
   return (
     <Paper component="form" className="flex" onSubmit={submitHandler}>
       <InputBase
-        className="pl-3 h-[48px]"
+        className="pl-3 h-[48px] w-[100%]"
         placeholder="Search"
         inputProps={{ "aria-label": "search" }}
         onChange={handleChange}

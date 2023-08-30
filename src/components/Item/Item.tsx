@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { IconButton, Box, Typography, Button } from "@mui/material";
+import { IconButton, Box, Typography } from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
-// import { useRouter } from "next/router";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
@@ -14,16 +13,11 @@ const Item = ({ item, width, isCategory }: any) => {
   const { setFilter } = useFilter();
   const { addToCart } = useCart();
   const { toggleFavorites, favorites } = useFavorites();
-  const [isHovered, setIsHovered] = useState(false);
   const { category, price, name, imageUrl, id } = item;
-  console.log("item", item);
+
   return (
     <Box width={width}>
-      <Box
-        position="relative"
-        onMouseOver={() => setIsHovered(true)}
-        onMouseOut={() => setIsHovered(false)}
-      >
+      <Box position="relative">
         <Image
           className="cursor-pointer"
           alt={name}
@@ -31,13 +25,12 @@ const Item = ({ item, width, isCategory }: any) => {
           height={534}
           src={imageUrl}
           onClick={
-            () => router.push(`/shop/${id}`)
-            // !isCategory
-            //   ? () => router.push(`/items/${id}`)
-            //   : () => {
-            //       setFilter(item.category);
-            //       router.push(`/shop`);
-            //     }
+            !isCategory
+              ? () => router.push(`/shop/${id}`)
+              : () => {
+                  setFilter(item.category);
+                  router.push(`/shop`);
+                }
           }
         />
         {!isCategory ? (
@@ -56,8 +49,8 @@ const Item = ({ item, width, isCategory }: any) => {
           <Box className="absolute top-[5%] left-[5%] px-[5%] py-0 text-white text-lg font-bold">
             <button
               onClick={() => {
-                // setFilter(item.category);
-                // router.push(`/shop`);
+                setFilter(item.category);
+                router.push(`/shop`);
               }}
             >
               {item.name}
@@ -65,10 +58,7 @@ const Item = ({ item, width, isCategory }: any) => {
           </Box>
         )}
         {!isCategory && (
-          <Box
-            // display={isHovered ? "block" : "none"}
-            className="absolute bottom-[10%] left-0 w-[100%] px-[5%] py-0"
-          >
+          <Box className="absolute bottom-[10%] left-0 w-[100%] px-[5%] py-0">
             <Box className="flex justify-between">
               <Box
                 className="flex items-center 

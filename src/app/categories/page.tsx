@@ -1,3 +1,4 @@
+import Categories from "@/components/Categories/Categories";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -5,6 +6,10 @@ export const metadata: Metadata = {
   description: "Categories",
 };
 
-export default function Categories() {
-  return <div>Categories</div>;
+export default function CategoriesPage() {
+  return (
+    <>
+      <Categories />
+    </>
+  );
 }

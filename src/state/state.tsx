@@ -35,10 +35,7 @@ type CartState = {
 type MobileMenuState = {
   isMobileMenu: boolean;
   setMobileMenu: () => void;
-  //   removeFromCart: (item: { id: string }) => void;
-  //   increaseCount: (item: { id: string }) => void;
-  //   decreaseCount: (item: { id: string }) => void;
-  //   setIsCartOpen: () => void;
+  setMobileMenuFalse: () => void;
 };
 
 export const useFilter = create<FilterState>((set) => ({
@@ -60,6 +57,9 @@ export const useMobileMenu = create<MobileMenuState>((set, get) => ({
   isMobileMenu: false,
   setMobileMenu: () => {
     set({ isMobileMenu: !get().isMobileMenu });
+  },
+  setMobileMenuFalse: () => {
+    set({ isMobileMenu: false });
   },
 }));
 
