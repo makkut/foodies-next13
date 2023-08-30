@@ -13,6 +13,7 @@ import { useCart, useFavorites, useFilter, useSearch } from "@/state/state";
 import { IconButton, InputBase, Paper } from "@mui/material";
 import dynamic from "next/dynamic";
 import HeaderMobileMenuButton from "../ui/squer-button/HeaderMobileMenuButton";
+import SeachInput from "../ui/search/SearchInput";
 
 const DynamicSquerButton = dynamic(
   () => import("../ui/squer-button/SquerButton"),
@@ -44,7 +45,8 @@ const HeaderProfile: FC = () => {
   return (
     <div className="flex justify-center items-center mr-3">
       <div className="mr-3 hidden lg:block">
-        <Paper component="form" className="flex" onSubmit={submitHandler}>
+        <SeachInput />
+        {/* <Paper component="form" className="flex" onSubmit={submitHandler}>
           <InputBase
             className="pl-3 h-[48px]"
             placeholder="Search"
@@ -59,7 +61,7 @@ const HeaderProfile: FC = () => {
           >
             <SearchIcon />
           </IconButton>
-        </Paper>
+        </Paper> */}
       </div>
       <div className="mr-3">
         <DynamicSquerButton

@@ -7,6 +7,7 @@ import HeaderProfile from "./HeaderProfile";
 import CartDrawer from "../CartDrawer/CartDrawer";
 import FavoritesDrawer from "../FavoritesDrawer/FavoritesDrawer";
 import HeaderMobileMenuButton from "../ui/squer-button/HeaderMobileMenuButton";
+import HeaderMobileMenu from "./HeaderMobileMenu";
 
 const Header: FC = () => {
   return (
@@ -14,6 +15,9 @@ const Header: FC = () => {
       <HeaderLogo />
       <div className="hidden lg:block">
         <HeaderMenu />
+        <CartDrawer />
+        <FavoritesDrawer />
+        <HeaderMobileMenu />
       </div>
 
       <div className="flex">
