@@ -66,7 +66,7 @@ const Item = ({ item, width, isCategory }: any) => {
         )}
         {!isCategory && (
           <Box
-            display={isHovered ? "block" : "none"}
+            // display={isHovered ? "block" : "none"}
             className="absolute bottom-[10%] left-0 w-[100%] px-[5%] py-0"
           >
             <Box className="flex justify-between">

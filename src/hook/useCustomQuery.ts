@@ -2,13 +2,20 @@ import {
   getCategoriesAsync,
   getGoodAsync,
   getGoodsAsync,
+  lengthGoodsAsync,
 } from "../service/handlers";
 import { useQuery } from "@tanstack/react-query";
 
-const useGoods = (category: string, query: string, sort: string) => {
+const useGoods = (
+  page: number,
+  itemsPerPage: number,
+  category: string,
+  query: string,
+  sort: string
+) => {
   return useQuery({
-    queryKey: ["goods", category, query, sort],
-    queryFn: () => getGoodsAsync(category, query, sort),
+    queryKey: ["goods", page, itemsPerPage, category, query, sort],
+    queryFn: () => getGoodsAsync(page, itemsPerPage, category, query, sort),
     staleTime: 5 * 60 * 1000,
   });
 };
@@ -28,5 +35,12 @@ const useCategories = () => {
     staleTime: 5 * 60 * 1000,
   });
 };
+const useGoodsLength = (category: string) => {
+  return useQuery({
+    queryKey: ["goodsLength", category],
+    queryFn: () => lengthGoodsAsync(category),
+    staleTime: 5 * 60 * 1000,
+  });
+};
 
-export { useGoods, useGood, useCategories };
+export { useGoods, useGood, useCategories, useGoodsLength };

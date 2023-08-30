@@ -1,3 +1,4 @@
+import Spinner from "@/components/Spinner/Spinner";
 import { useCategories } from "@/hook/useCustomQuery";
 import { useFilter, useSort } from "@/state/state";
 import { MenuItem, Select } from "@mui/material";
@@ -7,7 +8,11 @@ const SelectCategory = () => {
   //   const { setCurrentPage } = usePage((state: any) => state);
   const { data, isLoading } = useCategories();
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
   }
 
   const categoryHandler = (e: any) => {

@@ -1,12 +1,17 @@
-import { useFilter } from "@/state/state";
+import { useFilter, usePage } from "@/state/state";
 import { useCategories } from "@/hook/useCustomQuery";
+import Spinner from "@/components/Spinner/Spinner";
 
 const TabMenu = () => {
   const { filter, setFilter } = useFilter((state) => state);
-  //   const { setCurrentPage } = usePage((state: any) => state);
+  const { setCurrentPage } = usePage((state: any) => state);
   const { data, isLoading } = useCategories();
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="h-[54px]">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
@@ -16,7 +21,7 @@ const TabMenu = () => {
           <button
             onClick={() => {
               setFilter("all");
-              //   setCurrentPage(1);
+              setCurrentPage(1);
             }}
             className={` ${
               filter === "all"
@@ -33,7 +38,7 @@ const TabMenu = () => {
             <button
               onClick={() => {
                 setFilter(el.category);
-                // setCurrentPage(1);
+                setCurrentPage(1);
               }}
               className={` ${
                 el.category === filter

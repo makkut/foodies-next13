@@ -1,17 +1,38 @@
 "use client";
 
-import { useGoods } from "@/hook/useCustomQuery";
+import { useGoods, useGoodsLength } from "@/hook/useCustomQuery";
 import { FC } from "react";
 import { Box, Typography } from "@mui/material";
 import TabMenu from "../ui/tab-menu/TabMenu";
-import { useFilter, useSort } from "@/state/state";
+import { useFilter, usePage, useSort } from "@/state/state";
 import Item from "../Item/Item";
+import Spinner from "../Spinner/Spinner";
+import ErrorData from "../Error/ErrorData";
+import { PaginationButtonBlock } from "../ui/pagination/PaginationButtonBlock";
 
 const Shop: FC = () => {
-  const { filter, setFilter } = useFilter((state) => state);
-  const { sort, setSort } = useSort((state) => state);
-  const { data, isLoading, isError } = useGoods(filter, "all", sort);
+  const { filter } = useFilter((state) => state);
+  const { sort } = useSort((state) => state);
+  const { currentPage, itemsPerPage, setCurrentPage } = usePage(
+    (state: any) => state
+  );
+  const { data, isLoading, isError } = useGoods(
+    currentPage,
+    itemsPerPage,
+    filter,
+    "all",
+    sort
+  );
 
+  const length = useGoodsLength(filter);
+  const paginationPage = Math.round(length.data / itemsPerPage);
+
+  if (isError)
+    return (
+      <div className="flex justify-center items-center min-h-[75vh]">
+        <ErrorData />
+      </div>
+    );
   if (isLoading)
     return (
       <>
@@ -20,13 +41,11 @@ const Shop: FC = () => {
             Shop
           </Typography>
           <TabMenu />
-
-          {/* <SelectUI /> */}
+          <Spinner />
         </Box>
       </>
     );
 
-  console.log("data", data);
   return (
     <>
       <Box width="80%" margin="50px auto">
@@ -35,7 +54,6 @@ const Shop: FC = () => {
         </Typography>
         <TabMenu />
 
-        {/* <SelectUI /> */}
         <Box
           margin="0 auto"
           className="mt-5"
@@ -49,7 +67,7 @@ const Shop: FC = () => {
             <Item item={el} key={el.id} isCategory={false} />
           ))}
         </Box>
-        {/* {paginationPage > 1 ? (
+        {paginationPage > 1 ? (
           <PaginationButtonBlock
             disabledNext={currentPage === paginationPage}
             onClickNext={() => setCurrentPage(currentPage + 1)}
@@ -59,7 +77,7 @@ const Shop: FC = () => {
           />
         ) : (
           <></>
-        )} */}
+        )}
       </Box>
     </>
   );

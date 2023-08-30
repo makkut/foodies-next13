@@ -7,6 +7,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { toast } from "react-toastify";
+import ErrorData from "../Error/ErrorData";
+import Spinner from "../Spinner/Spinner";
 
 export default function ProductDetails({ id }: any) {
   const { data, isLoading, isError } = useGood(id);
@@ -19,8 +21,20 @@ export default function ProductDetails({ id }: any) {
   //   const { name, image, longDescription, category, price } = item.attributes;
   //   const API_URL = process.env.API_URL;
   //   console.log("isFavorites", isFavorites);
-  if (isLoading) return <>Loading...</>;
-  if (isError) return <>Error...</>;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center min-h-[75vh]">
+        <Spinner />
+      </div>
+    );
+
+  if (isError)
+    return (
+      <div className="flex justify-center items-center min-h-[75vh]">
+        <ErrorData />
+      </div>
+    );
+
   return (
     <div className="flex justify-center items-center pt-5 mb-10">
       <Box position="relative">

@@ -139,3 +139,16 @@ export const useFavorites = create<any>(
     }
   )
 );
+
+export const usePage = create((set, get): any => ({
+  currentPage: 1,
+  itemsPerPage: 50,
+
+  setCurrentPage: (page: any) => {
+    set({ currentPage: page });
+  },
+
+  setItemsPerPage: (pages: any) => {
+    set({ itemsPerPage: pages });
+  },
+}));
