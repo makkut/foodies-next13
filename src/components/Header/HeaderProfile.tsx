@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useCart, useFavorites, useFilter, useSearch } from "@/state/state";
 import { IconButton, InputBase, Paper } from "@mui/material";
 import dynamic from "next/dynamic";
+import HeaderMobileMenuButton from "../ui/squer-button/HeaderMobileMenuButton";
 
 const DynamicSquerButton = dynamic(
   () => import("../ui/squer-button/SquerButton"),
@@ -42,7 +43,7 @@ const HeaderProfile: FC = () => {
 
   return (
     <div className="flex justify-center items-center mr-3">
-      <div className="mr-3">
+      <div className="mr-3 hidden lg:block">
         <Paper component="form" className="flex" onSubmit={submitHandler}>
           <InputBase
             className="pl-3 h-[48px]"
@@ -78,6 +79,7 @@ const HeaderProfile: FC = () => {
           number={cart.length}
         />
       </div>
+
       {/* <Link href={session ? "/profile" : "/signin"}> */}
       <DynamicSquerButton Icon={FiUser} onClick={() => {}} />
       {/* </Link> */}

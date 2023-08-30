@@ -32,6 +32,15 @@ type CartState = {
   //   setIsCartOpen: () => void;
 };
 
+type MobileMenuState = {
+  isMobileMenu: boolean;
+  setMobileMenu: () => void;
+  //   removeFromCart: (item: { id: string }) => void;
+  //   increaseCount: (item: { id: string }) => void;
+  //   decreaseCount: (item: { id: string }) => void;
+  //   setIsCartOpen: () => void;
+};
+
 export const useFilter = create<FilterState>((set) => ({
   filter: "all",
   setFilter: (value) => set({ filter: value }),
@@ -45,6 +54,13 @@ export const useSort = create<SortState>((set) => ({
 export const useSearch = create<SearchState>((set) => ({
   search: "",
   setSearch: (value: any) => set({ search: value }),
+}));
+
+export const useMobileMenu = create<MobileMenuState>((set, get) => ({
+  isMobileMenu: false,
+  setMobileMenu: () => {
+    set({ isMobileMenu: !get().isMobileMenu });
+  },
 }));
 
 export const useCart = create<any>(

@@ -6,20 +6,20 @@ import HeaderMenu from "./HeaderMenu";
 import HeaderProfile from "./HeaderProfile";
 import CartDrawer from "../CartDrawer/CartDrawer";
 import FavoritesDrawer from "../FavoritesDrawer/FavoritesDrawer";
+import HeaderMobileMenuButton from "../ui/squer-button/HeaderMobileMenuButton";
 
 const Header: FC = () => {
   return (
     <header className={styles.header}>
       <HeaderLogo />
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <HeaderMenu />
-        <CartDrawer />
-        <FavoritesDrawer />
       </div>
+
       <div className="flex">
         <HeaderProfile />
-        <div className="block md:hidden  ml-3 pr-2">
-          {/* <HeaderMobileMenu /> */}
+        <div className="mr-3 block lg:hidden">
+          <HeaderMobileMenuButton />
         </div>
       </div>
     </header>
