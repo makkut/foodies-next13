@@ -1,3 +1,10 @@
+"use client";
+import Slider from "@/components/Slider/Slider";
+
 export default function Home() {
-  return <div>Sanity</div>;
+  return (
+    <div>
+      <Slider />
+    </div>
+  );
 }

@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={manrope.className}>
         <Header />
         <Providers>
-          <div className="min-h-[75vh]">{children}</div>
+          <div className="min-h-[72vh]">{children}</div>
         </Providers>
         <ToastContainer position="bottom-right" />
         <Footer />
