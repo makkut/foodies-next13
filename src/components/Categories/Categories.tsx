@@ -5,6 +5,7 @@ import { useCategories } from "@/hook/useCustomQuery";
 import Item from "../Item/Item";
 import ErrorData from "../Error/ErrorData";
 import Spinner from "../Spinner/Spinner";
+import { ItemInterface } from "@/interfaces/interfaces";
 
 const Categories: FC = () => {
   const { data, isLoading, isError } = useCategories();
@@ -40,9 +41,8 @@ const Categories: FC = () => {
           rowGap="20px"
           columnGap="1.33%"
         >
-          {data.map((item: any) => (
+          {data.map((item: ItemInterface) => (
             <Item item={item} key={item.id} isCategory={true} />
-            //   <Item item={el} key={el.id} />
           ))}
         </Box>
       </Box>

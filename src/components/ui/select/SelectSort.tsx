@@ -1,14 +1,14 @@
 import { useSort } from "@/state/state";
-import { MenuItem, Select } from "@mui/material";
+import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
 
 const SelectSort = () => {
   const { sort, setSort } = useSort((state) => state);
-  const sortHandler = (e: any) => {
+  const sortHandler = (e: SelectChangeEvent<string>) => {
     setSort(e.target.value);
   };
 
   return (
-    <div className="w-[400px]">
+    <div className="min-w-[300px]">
       <Select fullWidth value={sort} onChange={sortHandler}>
         <MenuItem value="default">Default</MenuItem>
         <MenuItem value="lowest">Price: Low to High</MenuItem>

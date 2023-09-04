@@ -6,8 +6,15 @@ import { toast } from "react-toastify";
 import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
 import { useCart, useFavorites, useFilter } from "@/state/state";
 import { useRouter } from "next/navigation";
+import { FavoritesInterface, ItemInterface } from "@/interfaces/interfaces";
 
-const Item = ({ item, width, isCategory }: any) => {
+type Props = {
+  item: ItemInterface;
+  width?: number;
+  isCategory: boolean;
+};
+
+const Item = ({ item, width, isCategory }: Props) => {
   const router = useRouter();
   const [count, setCount] = useState(1);
   const { setFilter } = useFilter();
@@ -35,7 +42,7 @@ const Item = ({ item, width, isCategory }: any) => {
         />
         {!isCategory ? (
           <Box className="absolute top-[5%] left-[77%] px-[5%] py-0">
-            {favorites.find((i: any) => i.id === item.id) ? (
+            {favorites.find((i: FavoritesInterface) => i.id === item.id) ? (
               <button onClick={() => toggleFavorites({ item: { ...item } })}>
                 <MdFavorite color="white" size={32} />
               </button>
@@ -90,7 +97,7 @@ const Item = ({ item, width, isCategory }: any) => {
           <Typography variant="subtitle2">
             {category
               .replace(/([A-Z])/g, " $1")
-              .replace(/^ ./, (str: any) => str.toUpperCase())}
+              .replace(/^ ./, (str: string) => str.toUpperCase())}
           </Typography>
           <Typography>{name}</Typography>
           <Typography fontWeight="bold">{price}</Typography>

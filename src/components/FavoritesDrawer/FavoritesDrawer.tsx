@@ -1,32 +1,11 @@
-// import { Box, Divider, IconButton } from "@mui/material";
-// import { Close, Add, Remove } from "@mui/icons-material";
-// import styled from "@emotion/styled";
-// import Image from "next/image";
-// import { useRouter } from "next/router";
-// import {
-//   Drawer,
-//   DrawerBody,
-//   DrawerFooter,
-//   DrawerHeader,
-//   DrawerOverlay,
-//   DrawerContent,
-//   DrawerCloseButton,
-// } from "@chakra-ui/react";
-// import { useCart } from "@/state/zustand";
 "use client";
 import Image from "next/image";
 import { useCart, useFavorites } from "@/state/state";
-import { Add, Close, Remove } from "@mui/icons-material";
-import {
-  Box,
-  Divider,
-  Drawer,
-  IconButton,
-  Typography,
-  styled,
-} from "@mui/material";
+import { Close } from "@mui/icons-material";
+import { Box, Divider, Drawer, IconButton, styled } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { FavoritesInterface } from "@/interfaces/interfaces";
 
 const FlexBox = styled(Box)`
   display: flex;
@@ -60,7 +39,7 @@ const FavoritesDrawer = () => {
           <h3 className="text-center font-bold">FAVORITES</h3>
           <Box>
             <Box>
-              {favorites.map((item: any) => {
+              {favorites.map((item: FavoritesInterface) => {
                 return (
                   <Box key={`${item.name}-${item.id}`}>
                     <FlexBox p="15px 0">

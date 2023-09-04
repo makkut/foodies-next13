@@ -1,9 +1,11 @@
+import { MouseEventHandler } from "react";
+
 interface IPaginationButtonBlock {
-  disabledNext: any;
-  onClickNext: any;
-  disabledPrev: any;
-  onClickPrev: any;
-  numPages: any;
+  disabledNext: boolean | undefined;
+  onClickNext: MouseEventHandler<Element> | undefined;
+  disabledPrev: boolean | undefined;
+  onClickPrev: MouseEventHandler<Element> | undefined;
+  numPages: string;
 }
 
 export function PaginationButtonBlock({

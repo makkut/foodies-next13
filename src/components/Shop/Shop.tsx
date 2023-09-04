@@ -9,12 +9,13 @@ import Item from "../Item/Item";
 import Spinner from "../Spinner/Spinner";
 import ErrorData from "../Error/ErrorData";
 import { PaginationButtonBlock } from "../ui/pagination/PaginationButtonBlock";
+import { ItemInterface } from "@/interfaces/interfaces";
 
 const Shop: FC = () => {
   const { filter } = useFilter((state) => state);
   const { sort } = useSort((state) => state);
   const { currentPage, itemsPerPage, setCurrentPage } = usePage(
-    (state: any) => state
+    (state) => state
   );
   const { data, isLoading, isError } = useGoods(
     currentPage,
@@ -63,7 +64,7 @@ const Shop: FC = () => {
           rowGap="20px"
           columnGap="1.33%"
         >
-          {data.map((el: any) => (
+          {data.map((el: ItemInterface) => (
             <Item item={el} key={el.id} isCategory={false} />
           ))}
         </Box>

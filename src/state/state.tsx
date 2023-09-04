@@ -1,5 +1,17 @@
+import {
+  CartItemInterface,
+  FavoritesInterface,
+  ItemInterface,
+} from "@/interfaces/interfaces";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+
+type PageState = {
+  currentPage: number;
+  itemsPerPage: number;
+  setCurrentPage: (page: number) => void;
+  setItemsPerPage: (page: number) => void;
+};
 
 type FilterState = {
   filter: string;
@@ -50,7 +62,7 @@ export const useSort = create<SortState>((set) => ({
 
 export const useSearch = create<SearchState>((set) => ({
   search: "",
-  setSearch: (value: any) => set({ search: value }),
+  setSearch: (value) => set({ search: value }),
 }));
 
 export const useMobileMenu = create<MobileMenuState>((set, get) => ({
@@ -70,11 +82,11 @@ export const useCart = create<any>(
       cart: [],
       addToCart: (item: any) => {
         const itemInCart = get().cart.find(
-          (cartItem: any) => cartItem.id === item.item.id
+          (cartItem: ItemInterface) => cartItem.id === item.item.id
         );
         if (itemInCart) {
           set({
-            cart: get().cart.map((el: any) =>
+            cart: get().cart.map((el: CartItemInterface) =>
               el.id === item.item.id
                 ? { ...el, count: itemInCart.count + item.item.count }
                 : el
@@ -84,22 +96,22 @@ export const useCart = create<any>(
           set({ cart: [...get().cart, item.item] });
         }
       },
-      removeFromCart: ({ id }: any) => {
+      removeFromCart: ({ id }: { id: string }) => {
         set({
-          cart: get().cart.filter((el: any) => el.id !== id),
+          cart: get().cart.filter((el: CartItemInterface) => el.id !== id),
         });
       },
-      increaseCount: ({ id }: any) => {
+      increaseCount: ({ id }: { id: string }) => {
         set({
-          cart: get().cart.map((el: any) =>
+          cart: get().cart.map((el: CartItemInterface) =>
             el.id === id ? { ...el, count: el.count + 1 } : el
           ),
         });
       },
 
-      decreaseCount: ({ id }: any) => {
+      decreaseCount: ({ id }: { id: string }) => {
         set({
-          cart: get().cart.map((el: any) =>
+          cart: get().cart.map((el: CartItemInterface) =>
             el.id === id && el.count > 1 ? { ...el, count: el.count - 1 } : el
           ),
         });
@@ -123,14 +135,14 @@ export const useFavorites = create<any>(
       favorites: [],
       toggleFavorites: (item: any) => {
         const itemInFavorites = get().favorites.find(
-          (el: any) => el.id === item.item.id
+          (el: FavoritesInterface) => el.id === item.item.id
         );
         if (itemInFavorites) {
           const index = get().favorites.findIndex(
-            (i: any) => i.id === item.item.id
+            (i: FavoritesInterface) => i.id === item.item.id
           );
           if (index !== -1) {
-            const newFavorites = get().favorites.slice(); // Создаем копию массива
+            const newFavorites = get().favorites.slice();
             newFavorites.splice(index, 1);
             set({
               favorites: newFavorites,
@@ -140,9 +152,11 @@ export const useFavorites = create<any>(
           set({ favorites: [...get().favorites, item.item] });
         }
       },
-      removeFromFavorites: ({ id }: any) => {
+      removeFromFavorites: ({ id }: { id: string }) => {
         set({
-          favorites: get().favorites.filter((item: any) => item.id !== id),
+          favorites: get().favorites.filter(
+            (item: FavoritesInterface) => item.id !== id
+          ),
         });
       },
       setIsFavoritesOpen: () => {
@@ -156,15 +170,15 @@ export const useFavorites = create<any>(
   )
 );
 
-export const usePage = create((set, get): any => ({
+export const usePage = create<PageState>((set) => ({
   currentPage: 1,
   itemsPerPage: 50,
 
-  setCurrentPage: (page: any) => {
+  setCurrentPage: (page: number) => {
     set({ currentPage: page });
   },
 
-  setItemsPerPage: (pages: any) => {
+  setItemsPerPage: (pages: number) => {
     set({ itemsPerPage: pages });
   },
 }));

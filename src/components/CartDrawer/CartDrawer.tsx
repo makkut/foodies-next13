@@ -1,31 +1,10 @@
-// import { Box, Divider, IconButton } from "@mui/material";
-// import { Close, Add, Remove } from "@mui/icons-material";
-// import styled from "@emotion/styled";
-// import Image from "next/image";
-// import { useRouter } from "next/router";
-// import {
-//   Drawer,
-//   DrawerBody,
-//   DrawerFooter,
-//   DrawerHeader,
-//   DrawerOverlay,
-//   DrawerContent,
-//   DrawerCloseButton,
-// } from "@chakra-ui/react";
-// import { useCart } from "@/state/zustand";
 "use client";
 import Image from "next/image";
 import { useCart } from "@/state/state";
 import { Add, Close, Remove } from "@mui/icons-material";
-import {
-  Box,
-  Divider,
-  Drawer,
-  IconButton,
-  Typography,
-  styled,
-} from "@mui/material";
+import { Box, Divider, Drawer, IconButton, styled } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { CartItemInterface } from "@/interfaces/interfaces";
 
 const FlexBox = styled(Box)`
   display: flex;
@@ -44,10 +23,9 @@ const CartDrawer = () => {
   } = useCart();
   const router = useRouter();
 
-  var map = cart.reduce((acc: any, cur: any) => {
+  var map = cart.reduce((acc: any, cur: { id: string; count: number }) => {
     acc[cur.id] = acc[cur.id] || {
       id: cur.id,
-      attributes: cur.attributes,
       count: [],
     };
     acc[cur.id].count.push(cur.count);
@@ -55,11 +33,12 @@ const CartDrawer = () => {
   }, {});
 
   var result = Object.values(map);
-
+  console.log("result", result);
   result.forEach((element: any) => {
+    console.log("element1", element);
     const initialValue = 0;
     const sumWithInitial = element.count.reduce(
-      (accumulator: any, currentValue: any) => accumulator + currentValue,
+      (accumulator: number, currentValue: number) => accumulator + currentValue,
       initialValue
     );
     element.count = sumWithInitial;
@@ -83,7 +62,7 @@ const CartDrawer = () => {
           </div>
           <h3 className="text-center font-bold">SHOPPING BAG</h3>
           <Box>
-            {cart.map((item: any) => {
+            {cart.map((item: CartItemInterface) => {
               console.log("item", item);
               return (
                 <Box key={`${item.name}-${item.id}`}>

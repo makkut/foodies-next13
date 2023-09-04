@@ -29,7 +29,6 @@ const Footer = () => {
             </span>
           </a>
         </div>
-        {/* <div>Links</div> */}
       </div>
     </div>
   );

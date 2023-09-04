@@ -1,7 +1,7 @@
 import ProductDetails from "@/components/ProductDetails/ProductDetails";
 import { getGoodAsync } from "@/service/handlers";
 
-async function getData(id: any) {
+async function getData(id: string) {
   const response = await getGoodAsync(id);
   return response;
 }

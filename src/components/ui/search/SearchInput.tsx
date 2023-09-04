@@ -2,11 +2,14 @@ import { IconButton, InputBase, Paper } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useMobileMenu, useSearch } from "@/state/state";
 import { useRouter } from "next/navigation";
+import { FormEvent } from "react";
 
 const SeachInput = () => {
   const router = useRouter();
   const { setMobileMenuFalse } = useMobileMenu();
-  const handleChange = (event: any) => setSearch(event.target.value);
+  const handleChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => setSearch(event.target.value);
   const { setSearch, search } = useSearch();
 
   const searchGoods = () => {
@@ -15,7 +18,7 @@ const SeachInput = () => {
     router.push(`/search?query=${search}`);
   };
 
-  const submitHandler = (e: any) => {
+  const submitHandler = (e: FormEvent<Element>) => {
     e.preventDefault();
     searchGoods();
   };

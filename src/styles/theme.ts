@@ -44,11 +44,6 @@ export const theme = createTheme({
     secondary: {
       main: shades.secondary[500],
     },
-    // neutral: {
-    //   dark: shades.neutral[700],
-    //   main: shades.neutral[500],
-    //   light: shades.neutral[100],
-    // },
   },
   typography: {
     fontFamily: ["Manrope", "sans-serif"].join(","),

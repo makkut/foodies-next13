@@ -2,21 +2,21 @@
 
 import { useGoods, useGoodsLength } from "@/hook/useCustomQuery";
 import { useFilter, usePage, useSort } from "@/state/state";
-import { Box, MenuItem, Select, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Item from "../Item/Item";
-import TabMenu from "../ui/tab-menu/TabMenu";
 import SelectCategory from "../ui/select/SelectCategory";
 import SelectSort from "../ui/select/SelectSort";
 import Spinner from "../Spinner/Spinner";
 import ErrorData from "../Error/ErrorData";
 import { PaginationButtonBlock } from "../ui/pagination/PaginationButtonBlock";
+import { ItemInterface } from "@/interfaces/interfaces";
 
-const Search = ({ query }: any) => {
+const Search = ({ query }: { query: string }) => {
   console.log("query", query);
   const { filter } = useFilter((state) => state);
   const { sort } = useSort((state) => state);
   const { currentPage, itemsPerPage, setCurrentPage } = usePage(
-    (state: any) => state
+    (state) => state
   );
   const { data, isLoading, isError } = useGoods(
     currentPage,
@@ -42,7 +42,7 @@ const Search = ({ query }: any) => {
           <Typography variant="h3" textAlign="center">
             Search &quot;{query}&quot;
           </Typography>
-          <div className="flex justify-around p-5">
+          <div className="md:flex justify-center mt-5">
             <SelectCategory />
             <SelectSort />
           </div>
@@ -58,13 +58,11 @@ const Search = ({ query }: any) => {
         <Typography variant="h3" textAlign="center">
           Search &quot;{query}&quot;
         </Typography>
-        <div className="flex justify-around p-5">
+        <div className="md:flex justify-center mt-5">
           <SelectCategory />
-          <div className="w-5"></div>
+          <div className="md:w-5 md:h-0 h-2"></div>
           <SelectSort />
         </div>
-
-        {/* <SelectUI /> */}
         <Box
           margin="0 auto"
           className="mt-5"
@@ -74,7 +72,7 @@ const Search = ({ query }: any) => {
           rowGap="20px"
           columnGap="1.33%"
         >
-          {data.map((el: any) => (
+          {data.map((el: ItemInterface) => (
             <Item item={el} key={el.id} isCategory={false} />
           ))}
         </Box>

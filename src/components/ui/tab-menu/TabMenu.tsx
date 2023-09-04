@@ -4,7 +4,7 @@ import Spinner from "@/components/Spinner/Spinner";
 
 const TabMenu = () => {
   const { filter, setFilter } = useFilter((state) => state);
-  const { setCurrentPage } = usePage((state: any) => state);
+  const { setCurrentPage } = usePage((state) => state);
   const { data, isLoading } = useCategories();
   if (isLoading) {
     return (
@@ -33,7 +33,7 @@ const TabMenu = () => {
             All
           </button>
         </li>
-        {data.map((el: any, index: any) => (
+        {data.map((el: { category: string; name: string }, index: number) => (
           <li className="mr-2" key={index}>
             <button
               onClick={() => {

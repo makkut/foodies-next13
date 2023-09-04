@@ -6,7 +6,7 @@ interface ISquereButton {
   Icon: IconType;
   onClick: () => void;
   number?: number;
-  clName?: any;
+  clName?: string;
 }
 const SquerButton: FC<ISquereButton> = ({ Icon, onClick, number, clName }) => {
   return (
