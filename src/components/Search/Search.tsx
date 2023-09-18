@@ -11,7 +11,7 @@ import ErrorData from "../Error/ErrorData";
 import { PaginationButtonBlock } from "../ui/pagination/PaginationButtonBlock";
 import { ItemInterface } from "@/interfaces/interfaces";
 
-const Search = ({ query }: { query: string }) => {
+const Search = ({ query }: { query: any }) => {
   console.log("query", query);
   const { filter } = useFilter((state) => state);
   const { sort } = useSort((state) => state);
