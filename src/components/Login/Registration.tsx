@@ -40,7 +40,7 @@ const Registration = () => {
   return (
     <>
       <Form onSubmit={handleSubmit(submitHandler)}>
-        <Typography component="h1" variant="h1">
+        <Typography component="h3" variant="h3" textAlign="center">
           Register
         </Typography>
         <List>
