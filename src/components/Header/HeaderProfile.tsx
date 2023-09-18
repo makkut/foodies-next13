@@ -4,7 +4,13 @@ import { FiUser } from "react-icons/fi";
 import { FiShoppingCart } from "react-icons/fi";
 import { MdFavoriteBorder } from "react-icons/md";
 import { useRouter } from "next/navigation";
-import { useCart, useFavorites, useFilter, useSearch } from "@/state/state";
+import {
+  useCart,
+  useCookies,
+  useFavorites,
+  useFilter,
+  useSearch,
+} from "@/state/state";
 import dynamic from "next/dynamic";
 import SeachInput from "../ui/search/SearchInput";
 
@@ -19,13 +25,14 @@ const HeaderProfile: FC = () => {
   const router = useRouter();
   const { cart, setIsCartOpen } = useCart();
   const { favorites, setIsFavoritesOpen } = useFavorites();
-  const { setSearch, search } = useSearch();
+  const { userInfo, setUserInfo, logOut } = useCookies((state: any) => state);
+  //   const { setSearch, search } = useSearch();
 
-  console.log("search", search);
-  const searchGoods = () => {
-    router.push(`/search?query=${search}`);
-    setSearch("");
-  };
+  console.log("userInfo", userInfo);
+  //   const searchGoods = () => {
+  //     router.push(`/search?query=${search}`);
+  //     setSearch("");
+  //   };
 
   return (
     <div className="flex justify-center items-center mr-3">
@@ -50,7 +57,12 @@ const HeaderProfile: FC = () => {
           number={cart.length}
         />
       </div>
-      <DynamicSquerButton Icon={FiUser} onClick={() => {}} />
+      <DynamicSquerButton
+        Icon={FiUser}
+        onClick={() => {
+          router.push(`/login`);
+        }}
+      />
     </div>
   );
 };

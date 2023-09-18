@@ -5,12 +5,17 @@ import {
 } from "@/interfaces/interfaces";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import Cookies from "js-cookie";
 
 type PageState = {
   currentPage: number;
   itemsPerPage: number;
   setCurrentPage: (page: number) => void;
   setItemsPerPage: (page: number) => void;
+};
+type UserInfo = {
+  userInfo: any;
+  setUserInfo: (value: string) => void;
 };
 
 type FilterState = {
@@ -182,3 +187,46 @@ export const usePage = create<PageState>((set) => ({
     set({ itemsPerPage: pages });
   },
 }));
+
+// export const useCookies = create<any>(
+//   persist(
+//     (set, get) => ({
+//       userInfo: "adfdfdfdf",
+//       //   userInfo: Cookies.get("userInfo") ? Cookies.get("userInfo") : null,
+//       setUserCookies: () => {
+//         set({
+//           userInfo: Cookies.get("userInfo") ? Cookies.get("userInfo") : null,
+//         });
+//       },
+//     }),
+//     {
+//       name: "cookies",
+//       storage: createJSONStorage(() => sessionStorage),
+//     }
+//   )
+// );
+
+// export const useCookies = create<UserInfo>((set) => ({
+//   userInfo: Cookies.get("userInfo")
+//     ? JSON.parse(Cookies.get("userInfo"))
+//     : null,
+//   setUserInfo: (value) => set({ userInfo: value }),
+// }));
+
+export const useCookies = create<UserInfo>((set) => {
+  const userInfoString = Cookies.get("userInfo");
+
+  return {
+    userInfo: userInfoString ? JSON.parse(userInfoString) : null,
+    setUserInfo: (value) => {
+      localStorage.setItem("userInfo", value);
+      Cookies.set("userInfo", value);
+      set({ userInfo: value });
+    },
+    logOut: () => {
+      localStorage.removeItem("userInfo");
+      Cookies.remove("userInfo");
+      set({ userInfo: null });
+    },
+  };
+});

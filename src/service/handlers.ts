@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import { client } from "../../utils/sanity.client";
 
 export const getGoodsAsync = async (
@@ -61,4 +62,37 @@ export const lengthGoodsAsync = async (category: string) => {
   }
   gQuery += "])";
   return await client.fetch(gQuery);
+};
+
+export const registr = async (req: any) => {
+  return await client.fetch(`*[_type == "user" && email == $email][0]`, {
+    email: req.body.email,
+  });
+};
+
+export const signToken = (user: any) => {
+  return jwt.sign(user, String(process.env.SANITY_AUTH_TOKEN), {
+    expiresIn: "30d",
+  });
+};
+
+export const isAuth = async (req: any, res: any, next: any) => {
+  const { authorization } = req.headers;
+  if (authorization) {
+    const token = authorization.slice(7, authorization.length); // BEARER XXX
+    jwt.verify(
+      token,
+      String(process.env.SANITY_AUTH_TOKEN),
+      (err: Error | null, decode: any) => {
+        if (err) {
+          res.status(401).send({ message: "Token is not valid" });
+        } else {
+          req.user = decode;
+          next();
+        }
+      }
+    );
+  } else {
+    res.status(401).send({ message: "Token is not suppiled" });
+  }
 };
