@@ -7,10 +7,8 @@ const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
 const tokenWithWriteAccess = process.env.SANITY_AUTH_TOKEN;
 
-export async function PUT(req: any, res: any) {
+export async function PUT(req: any) {
   const body = await req.json();
-  //   const userInfo = localStorage.getItem("userInfo");
-  //   console.log("userInfo", userInfo);
   const user1 = await client.fetch(`*[_type == "user" && _id == $id][0]`, {
     id: body.id,
   });

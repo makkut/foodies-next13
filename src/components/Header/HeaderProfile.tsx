@@ -1,7 +1,6 @@
 "use client";
 import { FC } from "react";
-import { FiUser } from "react-icons/fi";
-import { FiShoppingCart } from "react-icons/fi";
+import { FiUser, FiUserCheck, FiShoppingCart } from "react-icons/fi";
 import { MdFavoriteBorder } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import {
@@ -25,7 +24,7 @@ const HeaderProfile: FC = () => {
   const router = useRouter();
   const { cart, setIsCartOpen } = useCart();
   const { favorites, setIsFavoritesOpen } = useFavorites();
-  const { userInfo, setUserInfo, logOut } = useCookies((state: any) => state);
+  const { userInfo } = useCookies((state: any) => state);
   //   const { setSearch, search } = useSearch();
 
   console.log("userInfo", userInfo);
@@ -58,11 +57,12 @@ const HeaderProfile: FC = () => {
         />
       </div>
       <DynamicSquerButton
-        Icon={FiUser}
+        Icon={userInfo ? FiUserCheck : FiUser}
         onClick={() => {
           router.push(`/login`);
         }}
       />
+      {userInfo && userInfo.name}
     </div>
   );
 };

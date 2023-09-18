@@ -5,10 +5,9 @@ import Registration from "@/components/Login/Registration";
 import { useCookies } from "@/state/state";
 
 export default function LoginPage() {
-  const { userInfo, setUserInfo, logOut } = useCookies((state: any) => state);
+  const { userInfo } = useCookies((state: any) => state);
   return (
     <>
-      <h1>LoginPage</h1>
       {userInfo === null ? (
         <>
           <Registration />
