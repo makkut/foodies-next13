@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { styled } from "@mui/material/styles";
 import { useCookies } from "@/state/state";
 import { toast } from "react-toastify";
+import { ColorButton, LogoutButton } from "../ui/button/button";
 
 const Form = styled("form")(() => ({
   width: "100%",
@@ -170,14 +171,14 @@ const Profile = () => {
             ></Controller>
           </ListItem>
           <ListItem>
-            <Button variant="contained" type="submit" fullWidth color="primary">
+            <ColorButton variant="contained" type="submit" fullWidth>
               Register
-            </Button>
+            </ColorButton>
           </ListItem>
           <ListItem>
-            <Button onClick={() => logOut()} fullWidth color="primary">
+            <LogoutButton onClick={() => logOut()} fullWidth>
               Logout
-            </Button>
+            </LogoutButton>
           </ListItem>
         </List>
       </Form>

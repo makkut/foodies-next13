@@ -161,7 +161,12 @@ const Registration = () => {
             ></Controller>
           </ListItem>
           <ListItem>
-            <ColorButton variant="contained" type="submit" fullWidth>
+            <ColorButton
+              variant="contained"
+              type="submit"
+              fullWidth
+              size="medium"
+            >
               Register
             </ColorButton>
           </ListItem>

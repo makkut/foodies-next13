@@ -1,10 +1,20 @@
 import { Button, ButtonProps, styled } from "@mui/material";
-import { purple } from "@mui/material/colors";
+import { grey, red } from "@mui/material/colors";
 
 export const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
-  color: "black",
-  backgroundColor: "purple",
+  height: 45,
+  color: "white",
+  backgroundColor: red[500],
   "&:hover": {
-    backgroundColor: "blue",
+    backgroundColor: red[700],
+  },
+}));
+
+export const LogoutButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  height: 45,
+  color: "white",
+  backgroundColor: grey[500],
+  "&:hover": {
+    backgroundColor: grey[700],
   },
 }));

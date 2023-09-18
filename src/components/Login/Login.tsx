@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { styled } from "@mui/material/styles";
 import { useCookies } from "@/state/state";
+import { ColorButton } from "../ui/button/button";
 
 const Form = styled("form")(() => ({
   width: "100%",
@@ -96,9 +97,9 @@ const Login = () => {
             ></Controller>
           </ListItem>
           <ListItem>
-            <Button variant="contained" type="submit" fullWidth color="primary">
+            <ColorButton variant="contained" type="submit" fullWidth>
               Login
-            </Button>
+            </ColorButton>
           </ListItem>
         </List>
       </Form>
