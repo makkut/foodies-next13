@@ -12,6 +12,15 @@ import {
 } from "@/state/state";
 import dynamic from "next/dynamic";
 import SeachInput from "../ui/search/SearchInput";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+  DropdownSection,
+  User,
+} from "@nextui-org/react";
 
 const DynamicSquerButton = dynamic(
   () => import("../ui/squer-button/SquerButton"),
@@ -20,19 +29,16 @@ const DynamicSquerButton = dynamic(
   }
 );
 
+const DynamicDropDownUI = dynamic(() => import("../ui/dropdown/dropdown"), {
+  ssr: false,
+});
+
 const HeaderProfile: FC = () => {
   const router = useRouter();
   const { cart, setIsCartOpen } = useCart();
   const { favorites, setIsFavoritesOpen } = useFavorites();
-  const { userInfo } = useCookies((state: any) => state);
-  //   const { setSearch, search } = useSearch();
-
-  console.log("userInfo", userInfo);
-  //   const searchGoods = () => {
-  //     router.push(`/search?query=${search}`);
-  //     setSearch("");
-  //   };
-
+  const { userInfo, logOut } = useCookies((state: any) => state);
+  const user = JSON.parse(userInfo);
   return (
     <div className="flex justify-center items-center mr-3">
       <div className="mr-3 hidden lg:block">
@@ -56,13 +62,16 @@ const HeaderProfile: FC = () => {
           number={cart.length}
         />
       </div>
-      <DynamicSquerButton
-        Icon={userInfo ? FiUserCheck : FiUser}
-        onClick={() => {
-          router.push(`/login`);
-        }}
-      />
-      {userInfo && userInfo.name}
+      {user !== null ? (
+        <DynamicDropDownUI logOut={() => logOut()} userInfo={user} />
+      ) : (
+        <DynamicSquerButton
+          Icon={userInfo ? FiUserCheck : FiUser}
+          onClick={() => {
+            router.push(`/login`);
+          }}
+        />
+      )}
     </div>
   );
 };

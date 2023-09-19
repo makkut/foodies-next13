@@ -14,6 +14,7 @@ const Form = styled("form")(() => ({
 
 const Profile = () => {
   const { userInfo, logOut } = useCookies((state: any) => state);
+  const user = JSON.parse(userInfo);
   const {
     handleSubmit,
     control,
@@ -33,13 +34,13 @@ const Profile = () => {
       const { data } = await axios.put(
         "/api/users/profile",
         {
-          id: userInfo._id,
+          id: user._id,
           name,
           email,
           password,
         },
         {
-          headers: { authorization: `Bearer ${userInfo.token}` },
+          headers: { authorization: `Bearer ${user.token}` },
         }
       );
     } catch (err) {

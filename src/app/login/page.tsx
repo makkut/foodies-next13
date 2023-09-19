@@ -6,15 +6,18 @@ import { useCookies } from "@/state/state";
 
 export default function LoginPage() {
   const { userInfo } = useCookies((state: any) => state);
+  const user = JSON.parse(userInfo);
+
   return (
     <>
-      {userInfo === null ? (
+      {user === null ? (
         <>
           <Registration />
           <Login />
         </>
       ) : (
         <Profile />
+        // router.push("/")
       )}
     </>
   );
