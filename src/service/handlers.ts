@@ -46,6 +46,16 @@ export const getGoodAsync = async (id: string) => {
   return await client.fetch(gQuery);
 };
 
+export const getUser = async (id: string) => {
+  let gQuery = `*[_type == 'user' && _id == "${id}"] {
+      "id": _id,
+      name,
+      email,
+      isAdmin
+    }`;
+  return await client.fetch(gQuery);
+};
+
 export const getCategoriesAsync = async () => {
   return await client.fetch(`*[_type == 'category']{
 "id": _id,

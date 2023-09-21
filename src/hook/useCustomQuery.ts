@@ -2,6 +2,7 @@ import {
   getCategoriesAsync,
   getGoodAsync,
   getGoodsAsync,
+  getUser,
   lengthGoodsAsync,
 } from "../service/handlers";
 import { useQuery } from "@tanstack/react-query";
@@ -43,4 +44,12 @@ const useGoodsLength = (category: string) => {
   });
 };
 
-export { useGoods, useGood, useCategories, useGoodsLength };
+const useUser = (id: string) => {
+  return useQuery({
+    queryKey: ["user", id],
+    queryFn: () => getUser(id),
+    staleTime: 5 * 60 * 1000,
+  });
+};
+
+export { useGoods, useGood, useCategories, useGoodsLength, useUser };

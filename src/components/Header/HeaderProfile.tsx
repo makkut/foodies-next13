@@ -3,24 +3,9 @@ import { FC } from "react";
 import { FiUser, FiUserCheck, FiShoppingCart } from "react-icons/fi";
 import { MdFavoriteBorder } from "react-icons/md";
 import { useRouter } from "next/navigation";
-import {
-  useCart,
-  useCookies,
-  useFavorites,
-  useFilter,
-  useSearch,
-} from "@/state/state";
+import { useCart, useCookies, useFavorites } from "@/state/state";
 import dynamic from "next/dynamic";
 import SeachInput from "../ui/search/SearchInput";
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-  Button,
-  DropdownSection,
-  User,
-} from "@nextui-org/react";
 
 const DynamicSquerButton = dynamic(
   () => import("../ui/squer-button/SquerButton"),
@@ -38,7 +23,6 @@ const HeaderProfile: FC = () => {
   const { cart, setIsCartOpen } = useCart();
   const { favorites, setIsFavoritesOpen } = useFavorites();
   const { userInfo, logOut } = useCookies((state: any) => state);
-  const user = JSON.parse(userInfo);
   return (
     <div className="flex justify-center items-center mr-3">
       <div className="mr-3 hidden lg:block">
@@ -62,8 +46,8 @@ const HeaderProfile: FC = () => {
           number={cart.length}
         />
       </div>
-      {user !== null ? (
-        <DynamicDropDownUI logOut={() => logOut()} userInfo={user} />
+      {userInfo !== null ? (
+        <DynamicDropDownUI logOut={() => logOut()} userInfo={userInfo} />
       ) : (
         <DynamicSquerButton
           Icon={userInfo ? FiUserCheck : FiUser}

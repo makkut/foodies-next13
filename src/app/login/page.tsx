@@ -1,23 +1,20 @@
 "use client";
 import Login from "@/components/Login/Login";
-import Profile from "@/components/Login/Profile";
 import Registration from "@/components/Login/Registration";
 import { useCookies } from "@/state/state";
+import { redirect } from "next/navigation";
 
 export default function LoginPage() {
   const { userInfo } = useCookies((state: any) => state);
-  const user = JSON.parse(userInfo);
-
   return (
     <>
-      {user === null ? (
+      {userInfo === null ? (
         <>
           <Registration />
           <Login />
         </>
       ) : (
-        <Profile />
-        // router.push("/")
+        redirect("/")
       )}
     </>
   );

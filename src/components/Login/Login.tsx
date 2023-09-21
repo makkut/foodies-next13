@@ -1,10 +1,11 @@
-import { Button, List, ListItem, TextField, Typography } from "@mui/material";
+import { List, ListItem, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { styled } from "@mui/material/styles";
 import { useCookies } from "@/state/state";
 import { ColorButton } from "../ui/button/button";
+import Cookies from "js-cookie";
 
 const Form = styled("form")(() => ({
   width: "100%",
@@ -26,7 +27,8 @@ const Login = () => {
         email,
         password,
       });
-      setUserInfo(JSON.stringify(data));
+      Cookies.set("userInfo", JSON.stringify(data));
+      setUserInfo(data);
     } catch (err: any) {
       toast.error(err.response.data.message);
     }

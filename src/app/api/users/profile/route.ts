@@ -43,6 +43,7 @@ export async function PUT(req: any) {
     email: body.email,
     isAdmin: user1.isAdmin,
   };
+
   const token = signToken(user);
   return NextResponse.json({ ...user, token });
 }

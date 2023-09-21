@@ -1,10 +1,14 @@
-import { Button, List, ListItem, TextField, Typography } from "@mui/material";
+import { List, ListItem, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { Controller, useForm } from "react-hook-form";
 import { styled } from "@mui/material/styles";
 import { useCookies } from "@/state/state";
 import { toast } from "react-toastify";
 import { ColorButton, LogoutButton } from "../ui/button/button";
+import { useEffect } from "react";
+import { redirect } from "next/navigation";
+// import { useQueryClient } from "@tanstack/react-query";
+import Cookies from "js-cookie";
 
 const Form = styled("form")(() => ({
   width: "100%",
@@ -12,14 +16,34 @@ const Form = styled("form")(() => ({
   margin: "0 auto",
 }));
 
-const Profile = () => {
-  const { userInfo, logOut } = useCookies((state: any) => state);
-  const user = JSON.parse(userInfo);
+const Profile = ({ user }: any) => {
+  const { setUserInfo, logOut } = useCookies((state: any) => state);
+  //   const queryClient = useQueryClient();
+  //   const user = JSON.parse(userInfo);
+  //   const { data, isLoading, isError } = useUser(user._id);
   const {
     handleSubmit,
     control,
     formState: { errors },
+    setValue,
   } = useForm();
+  useEffect(() => {
+    if (!user) {
+      return redirect("/login");
+    }
+    setValue("name", user.name);
+    setValue("email", user.email);
+  }, [user]);
+
+  //   const { mutate } = useMutation({
+  //     mutationFn: (body: any) =>
+  //       axios.put("/api/users/profile", body, {
+  //         headers: { authorization: `Bearer ${body.token}` },
+  //       }),
+  //     onSuccess: () => {
+  //       queryClient.invalidateQueries({ queryKey: ["employees"] });
+  //     },
+  //   });
   const submitHandler = async ({
     name,
     email,
@@ -31,6 +55,13 @@ const Profile = () => {
       return;
     }
     try {
+      //   mutate({
+      //     id: user._id,
+      //     name,
+      //     email,
+      //     password,
+      //     token: user.token,
+      //   });
       const { data } = await axios.put(
         "/api/users/profile",
         {
@@ -43,6 +74,8 @@ const Profile = () => {
           headers: { authorization: `Bearer ${user.token}` },
         }
       );
+      setUserInfo(data);
+      Cookies.set("userInfo", JSON.stringify(data));
     } catch (err) {
       toast.error("Error");
     }
@@ -173,11 +206,18 @@ const Profile = () => {
           </ListItem>
           <ListItem>
             <ColorButton variant="contained" type="submit" fullWidth>
-              Register
+              Save
             </ColorButton>
           </ListItem>
           <ListItem>
-            <LogoutButton onClick={() => logOut()} fullWidth>
+            <LogoutButton
+              onClick={() => {
+                logOut();
+                Cookies.remove("userInfo");
+                redirect("/login");
+              }}
+              fullWidth
+            >
               Logout
             </LogoutButton>
           </ListItem>

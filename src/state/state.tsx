@@ -188,44 +188,17 @@ export const usePage = create<PageState>((set) => ({
   },
 }));
 
-// export const useCookies = create<any>(
-//   persist(
-//     (set, get) => ({
-//       userInfo: "adfdfdfdf",
-//       //   userInfo: Cookies.get("userInfo") ? Cookies.get("userInfo") : null,
-//       setUserCookies: () => {
-//         set({
-//           userInfo: Cookies.get("userInfo") ? Cookies.get("userInfo") : null,
-//         });
-//       },
-//     }),
-//     {
-//       name: "cookies",
-//       storage: createJSONStorage(() => sessionStorage),
-//     }
-//   )
-// );
-
-// export const useCookies = create<UserInfo>((set) => ({
-//   userInfo: Cookies.get("userInfo")
-//     ? JSON.parse(Cookies.get("userInfo"))
-//     : null,
-//   setUserInfo: (value) => set({ userInfo: value }),
-// }));
-
 export const useCookies = create<UserInfo>((set) => {
-  const userInfoString = Cookies.get("userInfo");
-
   return {
-    userInfo: userInfoString ? userInfoString : null,
-    setUserInfo: (value) => {
+    userInfo: Cookies.get("userInfo")
+      ? JSON.parse(Cookies.get("userInfo") as string)
+      : null,
+    setUserInfo: (value: any) => {
       localStorage.setItem("userInfo", value);
-      Cookies.set("userInfo", value);
       set({ userInfo: value });
     },
     logOut: () => {
       localStorage.removeItem("userInfo");
-      Cookies.remove("userInfo");
       set({ userInfo: null });
     },
   };

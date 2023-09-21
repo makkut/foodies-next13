@@ -8,9 +8,11 @@ import {
   DropdownTrigger,
   User,
 } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 import { FiUserCheck } from "react-icons/fi";
 
 const DropDownUI = ({ userInfo, logOut }: any) => {
+  const router = useRouter();
   return (
     <Dropdown
       showArrow
@@ -34,6 +36,9 @@ const DropDownUI = ({ userInfo, logOut }: any) => {
             case "logout":
               logOut();
               break;
+            case "user":
+              router.push("/profile");
+              break;
           }
         }}
         aria-label="Custom item styles"
@@ -44,8 +49,8 @@ const DropDownUI = ({ userInfo, logOut }: any) => {
             "rounded-md",
             "text-default-500",
             "transition-opacity",
-            "data-[hover=true]:text-foreground",
-            "data-[hover=true]:bg-default-100",
+            "data-[hover=true]:text-white",
+            "data-[hover=true]:bg-red-500",
             "dark:data-[hover=true]:bg-default-50",
             "data-[selectable=true]:focus:bg-default-50",
             "data-[pressed=true]:opacity-70",
@@ -73,11 +78,11 @@ const DropDownUI = ({ userInfo, logOut }: any) => {
             />
           </DropdownItem>
         </DropdownSection>
-        <DropdownSection aria-label="Actions" showDivider>
-          <DropdownItem key="dashboard">Dashboard</DropdownItem>
-          <DropdownItem key="settings">Settings</DropdownItem>
+        <DropdownSection aria-label="Actions">
+          <DropdownItem key="user">Profile</DropdownItem>
+          <DropdownItem key="order">Order history</DropdownItem>
+          <DropdownItem key="logout">Log Out</DropdownItem>
         </DropdownSection>
-        <DropdownItem key="logout">Log Out</DropdownItem>
       </DropdownMenu>
     </Dropdown>
   );
