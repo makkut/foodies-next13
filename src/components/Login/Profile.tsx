@@ -76,8 +76,9 @@ const Profile = ({ user }: any) => {
       );
       setUserInfo(data);
       Cookies.set("userInfo", JSON.stringify(data));
-    } catch (err) {
-      toast.error("Error");
+    } catch (err: any) {
+      console.log("err", err.response?.statusText);
+      toast.error(err.response?.statusText);
     }
   };
   return (
