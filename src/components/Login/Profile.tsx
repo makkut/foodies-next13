@@ -74,8 +74,8 @@ const Profile = ({ user }: any) => {
           headers: { authorization: `Bearer ${user.token}` },
         }
       );
-      setUserInfo(data);
-    //   Cookies.set("userInfo", JSON.stringify(data));
+      //   setUserInfo(data);
+      //   Cookies.set("userInfo", JSON.stringify(data));
     } catch (err: any) {
       console.log("err", err);
       toast.error(err.message);
