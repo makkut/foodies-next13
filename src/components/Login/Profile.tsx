@@ -63,7 +63,7 @@ const Profile = ({ user }: any) => {
       //     token: user.token,
       //   });
       const { data } = await axios.put(
-        "/api/users/profile",
+        "/api/users/profil",
         {
           id: user._id,
           name,
@@ -78,7 +78,8 @@ const Profile = ({ user }: any) => {
       //   Cookies.set("userInfo", JSON.stringify(data));
     } catch (err: any) {
       console.log("err", err);
-      toast.error(err.message);
+      //   toast.error(err.message);
+      toast.error(err.response.statusText);
     }
   };
   return (
