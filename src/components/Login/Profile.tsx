@@ -7,8 +7,9 @@ import { toast } from "react-toastify";
 import { ColorButton, LogoutButton } from "../ui/button/button";
 import { useEffect } from "react";
 import { redirect } from "next/navigation";
-// import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
+import { useMutation } from "@tanstack/react-query";
 
 const Form = styled("form")(() => ({
   width: "100%",
@@ -18,7 +19,7 @@ const Form = styled("form")(() => ({
 
 const Profile = ({ user }: any) => {
   const { setUserInfo, logOut } = useCookies((state: any) => state);
-  //   const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   //   const user = JSON.parse(userInfo);
   //   const { data, isLoading, isError } = useUser(user._id);
   const {
@@ -63,7 +64,7 @@ const Profile = ({ user }: any) => {
       //     token: user.token,
       //   });
       const { data } = await axios.put(
-        "/api/users/profil",
+        "/api/users/profile",
         {
           id: user._id,
           name,
@@ -74,7 +75,7 @@ const Profile = ({ user }: any) => {
           headers: { authorization: `Bearer ${user.token}` },
         }
       );
-      //   setUserInfo(data);
+      setUserInfo(data);
       //   Cookies.set("userInfo", JSON.stringify(data));
     } catch (err: any) {
       console.log("err", err);
