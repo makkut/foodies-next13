@@ -26,7 +26,7 @@ export default function RootLayout({
         <Providers>
           <div className="min-h-[72vh]">{children}</div>
         </Providers>
-        <ToastContainer position="bottom-right" />
+        <ToastContainer position="top-center" theme="colored" />
         <Footer />
       </body>
     </html>
