@@ -193,7 +193,7 @@ export const useCookies = create<UserInfo>((set) => {
     userInfo: null,
     // userInfo: Cookies.get("userInfo")
     //   ? JSON.parse(Cookies.get("userInfo") as string)
-    //   : null,
+    //   : null ,
     setUserInfo: (value: any) => {
       localStorage.setItem("userInfo", JSON.stringify(value));
       set({ userInfo: value });
