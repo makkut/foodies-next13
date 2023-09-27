@@ -190,10 +190,10 @@ export const usePage = create<PageState>((set) => ({
 
 export const useCookies = create<UserInfo>((set) => {
   return {
-    userInfo: null,
-    // userInfo: Cookies.get("userInfo")
-    //   ? JSON.parse(Cookies.get("userInfo") as string)
-    //   : null ,
+    // userInfo: null,
+    userInfo: Cookies.get("userInfo")
+      ? JSON.parse(Cookies.get("userInfo") as string)
+      : null,
     setUserInfo: (value: any) => {
       localStorage.setItem("userInfo", JSON.stringify(value));
       set({ userInfo: value });

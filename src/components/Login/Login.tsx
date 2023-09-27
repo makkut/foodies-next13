@@ -27,7 +27,7 @@ const Login = () => {
         email,
         password,
       });
-      //   Cookies.set("userInfo", JSON.stringify(data));
+      Cookies.set("userInfo", JSON.stringify(data));
       setUserInfo(data);
     } catch (err: any) {
       toast.error(err.response.data.message);

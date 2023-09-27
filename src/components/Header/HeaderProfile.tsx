@@ -1,5 +1,5 @@
 "use client";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { FiUser, FiUserCheck, FiShoppingCart } from "react-icons/fi";
 import { MdFavoriteBorder } from "react-icons/md";
 import { useRouter } from "next/navigation";
@@ -22,7 +22,13 @@ const HeaderProfile: FC = () => {
   const router = useRouter();
   const { cart, setIsCartOpen } = useCart();
   const { favorites, setIsFavoritesOpen } = useFavorites();
-  const { userInfo, logOut } = useCookies((state: any) => state);
+  const { userInfo, setUserInfo, logOut } = useCookies((state: any) => state);
+  //   useEffect(() => {
+  //     const localUserInfo = localStorage.getItem("userInfo");
+  //     console.log("localUserInfo", localUserInfo);
+  //     if (localUserInfo !== "null" || localUserInfo !== null)
+  //       setUserInfo(localUserInfo);
+  //   }, []);
   return (
     <div className="flex justify-center items-center mr-3">
       <div className="mr-3 hidden lg:block">
