@@ -119,7 +119,7 @@ const CartDrawer = () => {
                 className="px-[40px] py-[15px] min-w-[100%] my-[20px] bg-red-500 text-white font-bold hover:bg-red-800 duration-500
               transform rounded-md"
                 onClick={() => {
-                  router.push("/checkout");
+                  router.push("/shipping");
                   setIsCartOpen();
                 }}
               >

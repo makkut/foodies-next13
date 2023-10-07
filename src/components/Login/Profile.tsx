@@ -17,8 +17,8 @@ const Form = styled("form")(() => ({
   margin: "0 auto",
 }));
 
-const Profile = ({ user }: any) => {
-  const { setUserInfo, logOut } = useCookies((state: any) => state);
+const Profile = () => {
+  const { setUserInfo, logOut, userInfo } = useCookies((state: any) => state);
   const queryClient = useQueryClient();
   //   const user = JSON.parse(userInfo);
   //   const { data, isLoading, isError } = useUser(user._id);
@@ -29,12 +29,12 @@ const Profile = ({ user }: any) => {
     setValue,
   } = useForm();
   useEffect(() => {
-    if (!user) {
+    if (!userInfo) {
       return redirect("/login");
     }
-    setValue("name", user.name);
-    setValue("email", user.email);
-  }, [user]);
+    setValue("name", userInfo.name);
+    setValue("email", userInfo.email);
+  }, [userInfo]);
 
   //   const { mutate } = useMutation({
   //     mutationFn: (body: any) =>
@@ -66,13 +66,13 @@ const Profile = ({ user }: any) => {
       const { data } = await axios.put(
         "/api/users/profile",
         {
-          id: user._id,
+          id: userInfo._id,
           name,
           email,
           password,
         },
         {
-          headers: { authorization: `Bearer ${user.token}` },
+          headers: { authorization: `Bearer ${userInfo.token}` },
         }
       );
       setUserInfo(data);

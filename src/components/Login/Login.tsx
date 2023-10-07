@@ -3,7 +3,7 @@ import axios from "axios";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { styled } from "@mui/material/styles";
-import { useCookies } from "@/state/state";
+import { useCookies, useLogin } from "@/state/state";
 import { ColorButton } from "../ui/button/button";
 import Cookies from "js-cookie";
 
@@ -14,6 +14,7 @@ const Form = styled("form")(() => ({
 }));
 
 const Login = () => {
+  const { isAuth, setIsAuth } = useLogin((state: any) => state);
   const {
     handleSubmit,
     control,
@@ -35,7 +36,7 @@ const Login = () => {
   };
   return (
     <>
-      <Form onSubmit={handleSubmit(submitHandler)}>
+      <Form onSubmit={handleSubmit(submitHandler)} className="text-center">
         <Typography component="h3" variant="h3" textAlign="center">
           Login
         </Typography>
@@ -100,10 +101,19 @@ const Login = () => {
           </ListItem>
           <ListItem>
             <ColorButton variant="contained" type="submit" fullWidth>
-              Login
+              Autorisierung
             </ColorButton>
           </ListItem>
         </List>
+        <button
+          className="text-center"
+          onClick={(e) => {
+            e.preventDefault;
+            setIsAuth();
+          }}
+        >
+          Registrierung
+        </button>
       </Form>
     </>
   );

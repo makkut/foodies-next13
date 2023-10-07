@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { styled } from "@mui/material/styles";
 import { toast } from "react-toastify";
 import { ColorButton } from "../ui/button/button";
+import { useLogin } from "@/state/state";
 
 const Form = styled("form")(() => ({
   width: "100%",
@@ -12,6 +13,7 @@ const Form = styled("form")(() => ({
 }));
 
 const Registration = () => {
+  const { isAuth, setIsAuth } = useLogin((state: any) => state);
   const {
     handleSubmit,
     control,
@@ -39,7 +41,7 @@ const Registration = () => {
   };
   return (
     <>
-      <Form onSubmit={handleSubmit(submitHandler)}>
+      <Form onSubmit={handleSubmit(submitHandler)} className="text-center">
         <Typography component="h3" variant="h3" textAlign="center">
           Register
         </Typography>
@@ -167,10 +169,19 @@ const Registration = () => {
               fullWidth
               size="medium"
             >
-              Register
+              Registrierung
             </ColorButton>
           </ListItem>
         </List>
+        <button
+          className="text-center"
+          onClick={(e) => {
+            e.preventDefault;
+            setIsAuth();
+          }}
+        >
+          Autorisierung
+        </button>
       </Form>
     </>
   );

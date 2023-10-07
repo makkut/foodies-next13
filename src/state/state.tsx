@@ -13,14 +13,21 @@ type PageState = {
   setCurrentPage: (page: number) => void;
   setItemsPerPage: (page: number) => void;
 };
-type UserInfo = {
+type CookiesInfo = {
   userInfo: any;
+  shippingAddress: any;
+  paymentMethod: any;
   setUserInfo: (value: string) => void;
 };
 
 type FilterState = {
   filter: string;
   setFilter: (value: string) => void;
+};
+
+type AuthState = {
+  isAuth: boolean;
+  setIsAuth: (value: boolean) => void;
 };
 
 type SortState = {
@@ -54,6 +61,11 @@ type MobileMenuState = {
   setMobileMenu: () => void;
   setMobileMenuFalse: () => void;
 };
+
+export const useLogin = create<AuthState>((set, get) => ({
+  isAuth: false,
+  setIsAuth: (value) => set({ isAuth: !get().isAuth }),
+}));
 
 export const useFilter = create<FilterState>((set) => ({
   filter: "all",
@@ -188,19 +200,42 @@ export const usePage = create<PageState>((set) => ({
   },
 }));
 
-export const useCookies = create<UserInfo>((set) => {
+export const useCookies = create<CookiesInfo>((set) => {
+  const { cart, setIsCartOpen } = useCart();
   return {
     // userInfo: null,
+    // cartOrder: {
+    //   cart,
+    //   shippingAddress: Cookies.get("shippingAddress")
+    //     ? JSON.parse(Cookies.get("shippingAddress") as string)
+    //     : null,
+    // },
     userInfo: Cookies.get("userInfo")
       ? JSON.parse(Cookies.get("userInfo") as string)
       : null,
+    shippingAddress: Cookies.get("shippingAddress")
+      ? JSON.parse(Cookies.get("shippingAddress") as string)
+      : null,
+    paymentMethod: Cookies.get("paymentMethod")
+      ? Cookies.get("paymentMethod")
+      : "",
     setUserInfo: (value: any) => {
       localStorage.setItem("userInfo", JSON.stringify(value));
       set({ userInfo: value });
     },
+    setShippingAddress: (value: any) => {
+      localStorage.setItem("shippingAddress", JSON.stringify(value));
+      set({ shippingAddress: value });
+    },
+    setPaymentMethod: (value: any) => {
+      localStorage.setItem("paymentMethod", value);
+      set({ paymentMethod: value });
+    },
     logOut: () => {
       localStorage.removeItem("userInfo");
+      localStorage.removeItem("shippingAddress");
       set({ userInfo: null });
+      set({ shippingAddress: null });
     },
   };
 });
